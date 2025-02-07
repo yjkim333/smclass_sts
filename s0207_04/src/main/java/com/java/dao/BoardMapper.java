@@ -11,4 +11,6 @@ public interface BoardMapper {
 
 	ArrayList<BoardDto> selectAll();
 
+	BoardDto selectOne();
+
 }

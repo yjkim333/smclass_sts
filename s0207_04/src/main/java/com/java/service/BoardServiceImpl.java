@@ -15,10 +15,16 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public ArrayList<BoardDto> blist() {
-		
 		ArrayList<BoardDto> list = boardMapper.selectAll();
-		
 		return list;
 	}
 
+	
+	
+	@Override
+	public BoardDto bview(int bno) {
+		BoardDto boardDto = boardMapper.selectOne();
+		return boardDto;
+	}
+	
 }

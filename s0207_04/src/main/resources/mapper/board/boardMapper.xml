@@ -8,4 +8,10 @@
 	<select id="selectAll" resultType="com.java.dto.BoardDto">
 		select * from board
 	</select>
+	
+	<select id="selectOne" resultType="com.java.dto.BoardDto">
+		select * from board where bno=2
+	</select>
+	
+	
 </mapper>
