@@ -1,8 +1,11 @@
 package com.java.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.eclipse.tags.shaded.org.apache.bcel.classfile.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.java.dto.BoardDto;
 import com.java.service.BoardService;
@@ -47,9 +52,23 @@ public class BoardController {
 
 	// 게시글 쓰기 저장
 	@PostMapping("/bwrite")
-	public String bwrite(BoardDto bdto) {
-		boardService.bwrite(bdto); // id,btitle,bcontent,file
-
+	public String bwrite(BoardDto bdto,@RequestPart MultipartFile files) throws Exception {
+		bdto.setBfile(""); // 파일 첨부가 없을 때 
+		if(!files.isEmpty()) {
+			// 첨부파일의 원래이름
+			String origin = files.getOriginalFilename();
+			
+			// 파일이름 변경--이름중복방지
+			long time = System.currentTimeMillis();
+			String realFileName = String.format("%d_%s", time, origin);
+			
+			// upload
+			String url = "c:/upload/board/";
+			File f = new File(url+realFileName);
+			files.transferTo(f);
+			bdto.setBfile(realFileName);
+		}
+		boardService.bwrite(bdto); // id,btitle,bcontent,files
 		return "redirect:/board/blist?chkBwirte=1";
 	}
 
