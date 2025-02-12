@@ -1,0 +1,50 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Main</title>
+		<style>
+			a{text-decoration: none; color: inherit;}
+			ul,li{list-style:none; margin-bottom: 10px;}
+			.aa>img{height:20px;}
+		</style>
+		<script>
+		if("${param.logout}"=="1"){
+			alert("로그아웃되었습니다.");
+			location.href="/";
+		}	
+		if("${param.chkBwirte}"=="1"){
+			alert("게시글 저장 성공")
+			location.href="/";
+		}
+			
+		</script>
+	</head>
+	<body>
+		<div class="aa"><img src="/images/back1.jpg"></img></div>
+		<h2>Main</h2>
+		<div>session_id : ${session_id}</div>
+		<div>session_name : ${session_name}님, 환영합니다.</div>
+		<hr>
+		<ul>
+			<li><a href="/member/login">로그인 >></a></li>
+			<li><a href="/restpage">RestController Data >></a></li>
+			<li><a href="/rpage">Controller rpage Data >></a></li>
+			<li><a href="/member/member">회원가입 >></a></li>
+			<li><a href="/board/blist">게시판 >></a></li>
+			<li><a href="/board/bwrite">게시글 쓰기 >></a></li>
+			<li><a href="/member/mlist">회원리스트 >></a></li>
+			<li><a href="/member/memInfo">회원정보 >></a></li>
+			<li><a href="/member/logout">로그아웃 >></a></li>
+		</ul>
+		<c:if test="${param.fname != null}">
+		<h3>이미지 보임</h3>
+		<div>
+			<img src="/upload/${param.fname}">
+		</div>
+		</c:if>
+	</body>
+</html>
