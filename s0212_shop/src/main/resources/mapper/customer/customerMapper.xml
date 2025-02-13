@@ -7,8 +7,11 @@
 
 	<!-- notice list -->
 	<select id="selectAll" resultType="com.java.dto.BoardDto">
+		
 		select * from board order by bgroup desc, bstep asc
 	</select>
+	
+	
 	
 	<!-- nview -->
 	<!-- 1개 게시글 -->

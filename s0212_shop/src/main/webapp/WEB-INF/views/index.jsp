@@ -182,7 +182,7 @@
 								height="43" alt="메뉴닫기" />
 						</div>
 						<ul>
-							<li><a href="#">EVENT</a></li>
+							<li><a href="/event/event">EVENT</a></li>
 							<li><a href="/customer/notice">CUSTOMER</a></li>
 							<li><a href="#">COMMUNITY</a></li>
 						</ul>

@@ -10,7 +10,7 @@ import com.java.dto.BoardDto;
 @Mapper
 public interface CustomerMapper {
 	
-	// notice list
+	// notice list + search
 	Map<String, Object> selectAll(String search_option, String search_word);
 
 	// nview
