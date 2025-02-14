@@ -25,4 +25,10 @@ public interface EventMapper {
 	// 댓글저장 - 저장된 댓글 가져오기
 	CboardDto selectOneCboard(int cno);
 
+	// 댓글 수정 저장
+	void updateCboard(CboardDto cdto);
+
+	// 댓글 삭제
+	void deleteCboard(int cno);
+
 }

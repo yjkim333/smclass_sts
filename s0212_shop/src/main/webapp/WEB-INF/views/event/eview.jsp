@@ -263,10 +263,25 @@ $(document).ready(function() {
 
 					<!-- 댓글-->
 					<script>
+						let chk = 0; // 수정창 열림 체크
+						let cno;
+						let id = "${session_id}";
+						let cdate;
+						let ccontent;
+						let eno = ${edto.eno};
+						
+						// 댓글 쓰기
 						$(function(){
 							$(".replyBtn").click(function(){
+								if("${session_id}" == ""){
+									alert("로그인을 하세요.");
+									if(confirm("로그인페이지로 이동할까요?")){
+										location.href = "/member/login"
+									}
+									return;
+								}
 								alert("댓글을 저장합니다.");
-								console.log("댓글 총 개수 :"+(Number($(".allcount").text())+1));
+								console.log("총 개수 : "+(Number($(".allcount").text())+1));
 								
 								if($(".replyType").val().trim().length<1){
 									alert("댓글을 입력하세요.");
@@ -276,7 +291,7 @@ $(document).ready(function() {
 								}
 								let cpw = $(".replynum").val();
 								let ccontent = $(".replyType").val();
-								let eno = ${edto.eno};
+								//let eno = ${edto.eno};
 								
 								$.ajax({
 									url:"/event/cwrite",// 링크주소
@@ -290,6 +305,7 @@ $(document).ready(function() {
 										console.log(data.ccontent);
 										console.log("cdate : "+data.cdate);
 										
+										let eno = ${edto.eno};
 										let cno = data.cno;
 										let id = data.id;
 										let cpw = data.cpw;
@@ -318,9 +334,11 @@ $(document).ready(function() {
 										}
 										
 										// 총 개수 1증가
+										//총개수 1증가
 										let allcount = Number($(".allcount").text())+1;
-										$(".replyBox").prepend(hdata);
+										$(".allcount").text(allcount);
 										
+										$(".replyBox").prepend(hdata);
 										
 										// 입력 데이터 삭제
 										$(".replynum").val("");
@@ -330,9 +348,136 @@ $(document).ready(function() {
 										alert("댓글저장 실패");
 									}
 								});//ajax
-							});
-						});
-					
+							});// 댓글 쓰기
+							
+							// 댓글 삭제
+							// 정적형태 ->화면에 표시가 되면 추가된 html소스에는 적용이 안됨.
+							//$(".deleteBtn").click(funtion(){
+							//})
+							// 동적형태 -> 댓글을 추가하면 html소스가 추가되니까 추가적인 html소스에서도 적용이 가능 => 이렇게 해야함.
+							$(document).on("click",".deleteBtn",function(){
+								let cno = $(this).closest("ul").attr("id");
+								console.log($(this).closest("ul").attr("id"));
+								if(confirm(cno+"번 댓글을 삭제하시겠어요?")){
+									$.ajax({
+										url:"/event/cdelete",// 링크주소
+										type:"post",
+										data:{"cno":cno},
+										dataType:"text",	// 리턴 받을 갑의 형태
+										success:function(data){
+											console.log("result : "+data);
+
+											// 삭제 - html ul id로 html 코드 삭제
+											$("#"+cno).remove();
+											
+											// 총 개수 1증가
+											//총개수 1증가
+											let allcount = Number($(".allcount").text())-1;
+											$(".allcount").text(allcount);
+										},
+										error:function(){
+											alert("댓글삭제 실패");
+										}
+									});//ajax
+									
+									alert(cno+"번 댓글 삭제 완료!");
+								};
+							});// 댓글 삭제 - deleteBtn
+							
+							// 댓글 수정 - updateBtn
+							$(document).on("click",".updateBtn",function(){
+								if(chk == 1){
+									alert("다른 댓글의 수정창이 열려있어요. 닫은 후 다시 시도하세요.");
+									return;
+								}
+								
+								chk = 1;
+								
+								cno = $(this).closest("ul").attr("id");
+								cdate = $(this).closest("ul").children(".name").children("span").text();
+								ccontent = $(this).closest("ul").children(".txt").text();
+								console.log(cno);
+								console.log(cdate);
+								console.log(id);
+								console.log(ccontent);
+								
+								alert(cno+"번 수정버튼 클릭");
+								
+								let hdata = `
+									<li class="name">`+id+` <span>`+cdate+`</span></li>
+									<li class="txt"><textarea class="replyType">`+ccontent+`</textarea></li>
+									<li class="btn">
+										<a  class="rebtn saveBtn">저장</a>
+										<a  class="rebtn cancelBtn">취소</a>
+									</li>
+								`;
+								
+								$("#"+cno).html(hdata);
+							});// 댓글 수정 - updateBtn
+							
+							// 댓글 수정 취소 - cancelBtn
+							$(document).on("click",".cancelBtn",function(){
+								alert(cno+"번 취소 클릭");
+								console.log(id);
+								console.log(cdate);
+								console.log(ccontent);
+								
+								let hdata = `
+									<li class="name">`+id+` <span>`+cdate+`</span></li>
+									<li class="txt">`+ccontent+`</li>
+									<li class="btn">
+										<a  class="rebtn updateBtn">수정</a>
+										<a  class="rebtn deleteBtn">삭제</a>
+									</li>
+								`;
+								
+								$("#"+cno).html(hdata);
+								
+								chk = 0;
+								
+							});// 댓글 수정 취소 - cancelBtn
+							
+							// 댓글 수정 저장 - saveBtn
+							$(document).on("click",".saveBtn",function(){
+								alert(cno + "번 댓글 수정 완료!");
+								
+								ccontent = $(this).closest("ul").children(".txt").children(".replyType").val();
+								
+								$.ajax({
+									url:"/event/cupdate",// 링크주소
+									type:"post",
+									data:{"eno":eno, "cno":cno, "ccontent":ccontent},
+									dataType:"json",	// 리턴 받을 갑의 형태
+									success:function(data){
+										console.log("eno : "+data.eno);
+										console.log(data.cpw);
+										console.log("cno : "+data.cno);
+										console.log(data.ccontent);
+										console.log("cdate : "+data.cdate);
+										
+										
+										// 데이터 html 코드 생성
+										let hdata = "";
+										
+											hdata += '<li class="name">'+id+' <span> ['+moment(data.cdate).format("YYYY-MM-DD HH:mm:ss")+']</span></li>';
+											hdata += '<li class="txt">'+ccontent+'</li>';
+											hdata += '<li class="btn">';
+											hdata += '<a  class="rebtn updateBtn">수정</a>&nbsp';
+											hdata += '<a  class="rebtn deleteBtn">삭제</a>';
+											hdata += '</li>';
+										
+										$("#"+cno).html(hdata);
+										
+									},
+									error:function(){
+										alert("댓글저장 실패");
+									}
+								});//ajax
+								chk = 0;
+								
+							});// 댓글 수정 저장 - saveBtn
+							
+						});// jquery function
 					</script>
 					<div class="replyWrite">
 						<ul>
@@ -352,8 +497,8 @@ $(document).ready(function() {
 							<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
 							<li class="txt"><textarea class="replyType"></textarea></li>
 							<li class="btn">
-								<a href="#" class="rebtn">저장</a>
-								<a href="#" class="rebtn">취소</a>
+								<a href="#" class="rebtn saveBtn">수정</a>
+								<a href="#" class="rebtn cancelBtn">취소</a>
 							</li>
 						</ul>
 						-->
@@ -362,17 +507,19 @@ $(document).ready(function() {
 						<ul id="${cdto.cno}">
 							<li class="name">${cdto.id} <span>[${cdto.cdate}]</span></li>
 							<li class="txt">${cdto.ccontent}</li>
+							<c:if test="${session_id == cdto.id}">
 							<li class="btn">
 								<a  class="rebtn updateBtn">수정</a>
 								<a  class="rebtn deleteBtn">삭제</a>
 							</li>
+							</c:if>
 						</ul>
 						</c:if>
-						<c:if test="${cdto.cpw != null }">
+						<c:if test="${cdto.cpw != null}">
 						<ul id="${cdto.cno}">
 							<li class="name">${cdto.id} <span>[${cdto.cdate}]</span></li>
 							<li class="txt">
-								<a href="password.html" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
+								<a href="/event/pwCboard?cno=${cdto.cno}" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
 							</li>
 						</ul>
 						</c:if>

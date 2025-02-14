@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +15,18 @@
 <link rel="stylesheet" type="text/css" href="../css/reset.css" />
 <link rel="stylesheet" type="text/css" href="../css/content.css" />
 <script type="text/javascript" src="../js/jquery.min.js"></script>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
+<script>
+$(function(){
+	$(".pwChkBtn").click(function(){
+		pwChkFrm.submit();
+	});
+});
+</script>
+<style>
+a{cursor: pointer;}
+</style>
 <body>
 <div id="layerWrap">
 
@@ -24,12 +40,16 @@
 
 			<div class="inputBox">					
 				<ul>
-					<li><label for="">비밀번호</label><input type="password" class="w348" id="" /></li>
+					<form action="/event/pwCboard?cno=${param.cno}" name="pwChkFrm" method="post">
+					<li><label for="">비밀번호</label>
+					<input type="password" class="w348" id="" name="cpw" />
+					</li>
+					</form>
 				</ul>
 			</div>
 
 			<div class="centerbrn">
-				<a href="#">확인</a>
+				<a class="pwChkBtn">확인</a>
 			</div>
 		</div>
 

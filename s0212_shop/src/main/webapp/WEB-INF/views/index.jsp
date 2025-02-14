@@ -94,74 +94,21 @@
 
 	});
 </script>
+<script>
+
+	$(function(){
+		// 로그인 여부
+		if("${param.loginChk}"=="1"){
+			alert("로그인이 되었다.");
+		}else	if("${param.loginChk}"=="0"){
+			alert("로그아웃이 되었다.");
+		}
+	
+	});
+
+</script>
 </head>
 <body>
-
-
-
-	<!--익스레이어팝업-->
-	<div id="ieUser" style="display: none">
-		<div class="iewrap">
-			<p class="img">
-				<img src="../images/ico/ico_alert.gif" alt="알림" />
-			</p>
-			<p class="txt">
-				IE버전이 낮아 홈페이지 이용에 불편함이 있으므로 <strong>IE9이상이나 다른 브라우저</strong>를 이용해
-				주세요.
-			</p>
-			<ul>
-				<li><a
-					href="http://windows.microsoft.com/ko-kr/internet-explorer/download-ie"
-					target="_blank"><img src="../images/ico/ico_ie.gif"
-						alt="IE 최신브라우저 다운"></a></li>
-				<li><a href="https://www.google.com/intl/ko/chrome/browser"
-					target="_blank"><img src="../images/ico/ico_chrome.gif"
-						alt="IE 최신브라우저 다운"></a></li>
-				<li><a href="http://www.mozilla.org/ko/firefox/new"
-					target="_blank"><img src="../images/ico/ico_mozila.gif"
-						alt="MOZILA 최신브라우저 다운"></a></li>
-				<li><a href="http://www.apple.com/safari" target="_blank"><img
-						src="../images/ico/ico_safari.gif" alt="SAFARI 최신브라우저 다운"></a></li>
-				<li><a href="http://www.opera.com/ko/o/ie-simple"
-					target="_blank"><img src="../images/ico/ico_opera.gif"
-						alt="OPERA 최신브라우저 다운"></a></li>
-			</ul>
-			<p class="btn" onclick="msiehide();">
-				<img src="../images/ico/ico_close.gif" alt="닫기" />
-			</p>
-		</div>
-	</div>
-	<!--//익스레이어팝업-->
-	<!--IE 6,7,8 사용자에게 브라우저 업데이터 설명 Div 관련 스크립트-->
-	<script type="text/javascript">
-		var settimediv = 200000; //지속시간(1000= 1초)
-		var msietimer;
-
-		$(document).ready(function() {
-			msiecheck();
-		});
-
-		var msiecheck = function() {
-			var browser = navigator.userAgent.toLowerCase();
-			if (browser.indexOf('msie 6') != -1
-					|| browser.indexOf('msie 7') != -1
-					|| browser.indexOf('msie 8') != -1) {
-				msieshow();
-			} else {
-				msiehide();
-			}
-		}
-
-		var msieshow = function() {
-			$("#ieUser").show();
-			msietimer = setTimeout("msiehide()", settimediv);
-		}
-
-		var msiehide = function() {
-			$("#ieUser").hide();
-			clearTimeout(msietimer);
-		}
-	</script>
 
 	<div id="allwrap">
 		<div id="wrap">
@@ -169,9 +116,7 @@
 			<div id="header">
 
 				<div id="snbBox">
-					<h1>
-						<img src="../images/txt/logo.gif" alt="JARDIN SHOP" />
-					</h1>
+				<h1><a href="/"><img src="../images/txt/logo.gif" alt="JARDIN SHOP" /></a></h1>
 					<div id="quickmenu">
 						<div id="mnaviOpen">
 							<img src="../images/btn/btn_mnavi.gif" width="33" height="31"
@@ -189,8 +134,14 @@
 					</div>
 					<div id="snb">
 						<ul>
-							<li><a href="#">LOGIN</a></li>
-							<li><a href="#">JOIN</a></li>
+							<c:if test="${session_id == null}">
+							<li><a href="/member/login">LOGIN</a></li>
+							<li><a href="/member/join">JOIN</a></li>
+							</c:if>
+							<c:if test="${session_id != null}">
+							<li>${session_id} 님</li>
+							<li><a href="/member/logout">LOGOUT</a></li>
+							</c:if>
 							<li><a href="#">MY PAGE</a></li>
 							<li><a href="#">CART</a></li>
 						</ul>

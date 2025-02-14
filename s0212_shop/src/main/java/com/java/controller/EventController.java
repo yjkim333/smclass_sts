@@ -49,6 +49,18 @@ public class EventController {
 		return "/event/eview";
 	}
 	
+	// 댓글 비번체크
+	@GetMapping("/pwCboard")
+	public String getMethodName(int cno) {
+		return "/event/pwCboard";
+	}
+	// 댓글 비번체크
+	@PostMapping("/pwCboard")
+	public String getMethodName(int cno,String cpw) {
+		
+		
+		return "/event/pwCboard";
+	}
 	
 	
 }

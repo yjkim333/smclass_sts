@@ -36,10 +36,20 @@
 		#{cno},#{eno},#{id},#{cpw},#{ccontent},sysdate
 		)
 	</insert>
+	<!-- // 댓글 수정 저장 -->
+	<update id="updateCboard">
+		update cboard set ccontent = #{ccontent}, cdate = sysdate where cno = #{cno}
+	</update>
+	
 	<!-- // 댓글저장 - 저장된 댓글 가져오기 -->
 	<select id="selectOneCboard" resultType="com.java.dto.CboardDto">
 		select * from cboard where cno = #{cno}
 	</select>
+	
+	<!-- 댓글삭제 -->
+	<delete id="deleteCboard">
+	 delete cboard where cno=#{cno}
+	</delete>
 	
 	
 </mapper>

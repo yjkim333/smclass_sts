@@ -19,4 +19,10 @@ public interface EventService {
 	// 댓글 저장
 	CboardDto cwrite(CboardDto cdto);
 
+	// 댓글 수정 저장
+	CboardDto cupdate(CboardDto cdto);
+
+	// 댓글 삭제
+	void cdelte(int cno);
+
 }
