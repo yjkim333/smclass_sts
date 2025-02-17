@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,94 +22,45 @@
 <script type="text/javascript" src="../js/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="../js/idangerous.swiper-2.1.min.js"></script>
 <script type="text/javascript" src="../js/jquery.anchor.js"></script>
-<!--[if lt IE 9]>
-<script type="text/javascript" src="../js/html5.js"></script>
-<script type="text/javascript" src="../js/respond.min.js"></script>
-<![endif]-->
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	
-
-
 });
 </script>
 </head>
 <body>
-
-
-
-<!--익스레이어팝업-->
-<div id="ieUser" style="display:none">
-	<div class="iewrap">	
-		<p class="img"><img src="../images/ico/ico_alert.gif" alt="알림" /></p>
-		<p class="txt">IE버전이 낮아 홈페이지 이용에 불편함이 있으므로 <strong>IE9이상이나 다른 브라우저</strong>를 이용해 주세요. </p>
-		<ul>
-			<li><a href="http://windows.microsoft.com/ko-kr/internet-explorer/download-ie" target="_blank"><img src="../images/ico/ico_ie.gif" alt="IE 최신브라우저 다운" ></a></li>
-			<li><a href="https://www.google.com/intl/ko/chrome/browser" target="_blank"><img src="../images/ico/ico_chrome.gif" alt="IE 최신브라우저 다운" ></a></li>
-			<li><a href="http://www.mozilla.org/ko/firefox/new" target="_blank"><img src="../images/ico/ico_mozila.gif" alt="MOZILA 최신브라우저 다운" ></a></li>
-			<li><a href="http://www.apple.com/safari" target="_blank"><img src="../images/ico/ico_safari.gif" alt="SAFARI 최신브라우저 다운" ></a></li>
-			<li><a href="http://www.opera.com/ko/o/ie-simple" target="_blank"><img src="../images/ico/ico_opera.gif" alt="OPERA 최신브라우저 다운" ></a></li>		
-		</ul>
-		<p class="btn" onclick="msiehide();"><img src="../images/ico/ico_close.gif" alt="닫기" /></p>
-	</div>
-</div>
-<!--//익스레이어팝업-->
-<!--IE 6,7,8 사용자에게 브라우저 업데이터 설명 Div 관련 스크립트-->
- <script type="text/javascript">
-
-     var settimediv = 200000; //지속시간(1000= 1초)
-     var msietimer;
-
-     $(document).ready(function () {
-         msiecheck();
-     });
-
-     var msiecheck = function () {
-         var browser = navigator.userAgent.toLowerCase();
-         if (browser.indexOf('msie 6') != -1 ||
-                browser.indexOf('msie 7') != -1 ||
-				 browser.indexOf('msie 8') != -1) {
-             msieshow();			 
-         }
-         else {
-             msiehide();
-         }
-     }
-
-     var msieshow = function () {
-        $("#ieUser").show();
-        msietimer = setTimeout("msiehide()", settimediv);
-     }
-
-     var msiehide = function () {
-		$("#ieUser").hide();
-        clearTimeout(msietimer);
-     }
-</script>
-
 <div id="allwrap">
 <div id="wrap">
 
 	<div id="header">
 		
 		<div id="snbBox">
-			<h1><img src="../images/txt/logo.gif" alt="JARDIN SHOP" /></h1>
+			<h1><a href="/"><img src="../images/txt/logo.gif" alt="JARDIN SHOP" /></a></h1>
 			<div id="quickmenu">
 				<div id="mnaviOpen"><img src="../images/btn/btn_mnavi.gif" width="33" height="31" alt="메뉴열기" /></div>
 				<div id="mnaviClose"><img src="../images/btn/btn_mnavi_close.gif" width="44" height="43" alt="메뉴닫기" /></div>
 				<ul>
-					<li><a href="#">EVENT</a></li>
-					<li><a href="#">CUSTOMER</a></li>
-					<li><a href="#">COMMUNITY</a></li>
+					<li><a href="/event/event">EVENT</a></li>
+					<li><a href="/customer/notice">CUSTOMER</a></li>
+					<li><a href="/community/epilogue">COMMUNITY</a></li>
 				</ul>
 			</div>
 			<div id="snb">
 				<ul>
-					<li><a href="#">LOGIN</a></li>
-					<li><a href="#">JOIN</a></li>
-					<li><a href="#">MY PAGE</a></li>
-					<li><a href="#">CART</a></li>
-				</ul>
+						<c:if test="${session_id == null}">
+						<li><a href="/member/login">LOGIN</a></li>
+						<li><a href="/member/step01">JOIN</a></li>
+						</c:if>
+						<c:if test="${session_id != null}">
+						<li>${session_id} 님</li>
+						<li><a href="/member/logout">LOGOUT</a></li>
+						</c:if>
+						<li><a href="#">MY PAGE</a></li>
+						<li><a href="#">CART</a></li>
+					</ul>
+
 
 				<div id="search">
 					<input type="text" class="searchType" />
@@ -114,7 +69,6 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
-
 
 	<!-- GNB -->
 	<div id="gnb">
@@ -244,14 +198,70 @@ $(document).ready(function() {
 							<li>회원님의 개인 정보 보호를 위해 실명확인을 실시하고 있습니다.</li>
 						</ul>
 					</div>
-
-
+					
+					<!-- table 추가 -->
+					<div class="checkDivTab">
+						<table summary="분류, 구매여부, 평가, 제목, 상세 내용 순으로 상품평을 작성 하실수 있습니다." class="checkTable" border="1" cellspacing="0">
+							<caption>상품평 작성</caption>
+							<colgroup>
+							<col width="25%" class="tw30" />
+							<col width="*" />
+							</colgroup>
+							<tbody>
+								<tr>
+									<th scope="row"><span>이메일 주소 입력</span></th>
+									<td>
+										<input type="text" class="wlong" name="email"/>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row"><span>인증 코드</span></th>
+									<td>
+										<input type="text" class="wlong" readonly/>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<script>
+					  $(function(){
+							$(".nbtnbig").click(()=>{
+								let email = $('input[name="email"]');
+								if(email.val().length<1){
+									alert("이메일을 입력해주세요.");
+									email.focus();
+									return;
+								}
+								alert("인증코드를 이메일로 발송했음");
+								// ajax 이메일 발송 - application properties pom.xml 세팅
+								$.ajax({
+									url:"/member/sendEmail",
+									type:"post",
+									data:{"email":email.val()},
+									success:function(data){
+										alert("성공!!");
+										console.log(data);
+									},
+									error:function(){
+										alert("이메일 발송 실패");
+									}
+									
+								})// ajax
+								
+								
+							});
+					  });// jquery
+					</script>
 					<!-- Btn Area -->
-					<div class="btnAreaCenter">
-						<a href="#" class="gbtn">휴대폰인증</a></li>
+					<div class="btnArea">
+						<div class="bCenter">
+							<ul>																
+								<li><a class="nbtnbig">인증코드 발송</a></li>
+								<li><a href="#" class="sbtnMini">다음 ></a></li>
+							</ul>
+						</div>
 					</div>
 					<!-- //Btn Area -->
-
 
 				</div>
 			</div>

@@ -6,7 +6,6 @@
 <html>
 <head>
 <title> JARDIN SHOP </title>
-
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="JARDIN SHOP" />
@@ -24,65 +23,14 @@
 <script type="text/javascript" src="../js/idangerous.swiper-2.1.min.js"></script>
 <script type="text/javascript" src="../js/jquery.anchor.js"></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<!--[if lt IE 9]>
-<script type="text/javascript" src="../js/html5.js"></script>
-<script type="text/javascript" src="../js/respond.min.js"></script>
-<![endif]-->
 
+<script type="text/javascript">
+$(document).ready(function() {
+
+});
+</script>
 </head>
 <body>
-
-
-
-<!--익스레이어팝업-->
-<div id="ieUser" style="display:none">
-	<div class="iewrap">	
-		<p class="img"><img src="../images/ico/ico_alert.gif" alt="알림" /></p>
-		<p class="txt">IE버전이 낮아 홈페이지 이용에 불편함이 있으므로 <strong>IE9이상이나 다른 브라우저</strong>를 이용해 주세요. </p>
-		<ul>
-			<li><a href="http://windows.microsoft.com/ko-kr/internet-explorer/download-ie" target="_blank"><img src="../images/ico/ico_ie.gif" alt="IE 최신브라우저 다운" ></a></li>
-			<li><a href="https://www.google.com/intl/ko/chrome/browser" target="_blank"><img src="../images/ico/ico_chrome.gif" alt="IE 최신브라우저 다운" ></a></li>
-			<li><a href="http://www.mozilla.org/ko/firefox/new" target="_blank"><img src="../images/ico/ico_mozila.gif" alt="MOZILA 최신브라우저 다운" ></a></li>
-			<li><a href="http://www.apple.com/safari" target="_blank"><img src="../images/ico/ico_safari.gif" alt="SAFARI 최신브라우저 다운" ></a></li>
-			<li><a href="http://www.opera.com/ko/o/ie-simple" target="_blank"><img src="../images/ico/ico_opera.gif" alt="OPERA 최신브라우저 다운" ></a></li>		
-		</ul>
-		<p class="btn" onclick="msiehide();"><img src="../images/ico/ico_close.gif" alt="닫기" /></p>
-	</div>
-</div>
-<!--//익스레이어팝업-->
-<!--IE 6,7,8 사용자에게 브라우저 업데이터 설명 Div 관련 스크립트-->
- <script type="text/javascript">
-
-     var settimediv = 200000; //지속시간(1000= 1초)
-     var msietimer;
-
-     $(document).ready(function () {
-         msiecheck();
-     });
-
-     var msiecheck = function () {
-         var browser = navigator.userAgent.toLowerCase();
-         if (browser.indexOf('msie 6') != -1 ||
-                browser.indexOf('msie 7') != -1 ||
-				 browser.indexOf('msie 8') != -1) {
-             msieshow();			 
-         }
-         else {
-             msiehide();
-         }
-     }
-
-     var msieshow = function () {
-        $("#ieUser").show();
-        msietimer = setTimeout("msiehide()", settimediv);
-     }
-
-     var msiehide = function () {
-		$("#ieUser").hide();
-        clearTimeout(msietimer);
-     }
-</script>
-
 <div id="allwrap">
 <div id="wrap">
 
@@ -101,14 +49,8 @@
 			</div>
 			<div id="snb">
 				<ul>
-					<c:if test="${session_id == null}">
-					<li><a href="/member/login">LOGIN</a></li>
-					<li><a href="/member/join">JOIN</a></li>
-					</c:if>
-					<c:if test="${session_id != null}">
-					<li>${session_id} 님</li>
-					<li><a href="/member/logout">LOGOUT</a></li>
-					</c:if>
+					<li><a href="#">LOGIN</a></li>
+					<li><a href="#">JOIN</a></li>
 					<li><a href="#">MY PAGE</a></li>
 					<li><a href="#">CART</a></li>
 				</ul>
@@ -193,79 +135,142 @@
 
 		<div id="location">
 			<ol>
-				<li><a href="#">HOME</a></li>
-				<li><a href="#">CUSTOMER</a></li>
-				<li class="last">NOTICE</li>
+				<li><a href="/">HOME</a></li>
+				<li><a href="/community/epilogue">COMMUNITY</a></li>
+				<li class="last">사용 후기</li>
 			</ol>
 		</div>
 		
 		<div id="outbox">		
 			<div id="left">
-				<div id="title2">CUSTOMER<span>고객센터</span></div>
+				<div id="title2">COMMUNITY<span>커뮤니티</span></div>
 				<ul>	
-					<li><a href="#" id="leftNavi1">NOTICE</a></li>
-					<li><a href="#" id="leftNavi2">1:1문의</a></li>
-					<li><a href="#" id="leftNavi3">FAQ</span></a></li>
-					<li class="last"><a href="#" id="leftNavi4">이용안내</a></li>
+					<li><a href="/community/comment" id="leftNavi1">체험단</a></li>
+					<li><a href="/community/epilogue" id="leftNavi2">사용 후기</a></li>
+					<li class="last"><a href="#" id="leftNavi3">ENJOY COFFEE</a></li>
 				</ul>			
-			</div><script type="text/javascript">initSubmenu(1,0);</script>
+			</div><script type="text/javascript">initSubmenu(2,0);</script>
 
 
 			<!-- contents -->
 			<div id="contents">
-				<div id="customer">
-					<h2><strong>NOTICE</strong><span>쟈뎅샵 소식을 전해드립니다.</span></h2>
+				<div id="mypage">
+					<h2><strong>사용 후기</strong><span>쟈뎅 제품을 구매하신 회원님들의 소중한 후기입니다.</span></h2>
 					
-					<div class="orderDivMt">
-						<table summary="NO, 제목, 등록일, 조회수 순으로 공지사항을 조회 하실수 있습니다." class="orderTable2" border="1" cellspacing="0">
-							<caption>공지사항 보기</caption>
-							<colgroup>
-							<col width="10%" class="tnone" />
-							<col width="*" />
-							<col width="14%" class="tw25" />
-							<col width="14%" class="tnone" />
-							</colgroup>
-							<thead>
-								<th scope="col" class="tnone">NO.</th>
-								<th scope="col">제목</th>
-								<th scope="col">등록일</th>
-								<th scope="col" class="tnone">조회수</th>
-							</thead>
-							<tbody>
-							
-							
-							<c:forEach items="${list}" var="ct">
-							<!-- 게시글날짜 -->							
-							<fmt:formatDate var="day" value="${ct.bdate}" pattern="yyyy-MM-dd"/>
-							<c:if test="${day == today}">
-								<tr>
-									<td class="tnone">${ct.bno}</td>
-									<td class="left">
-										<a href="/customer/nview?bno=${ct.bno}">${ct.btitle}</a>
-										<img src="../images/ico/ico_new.gif" alt="NEW" />
-									</td>
-									<td><fmt:formatDate value="${ct.bdate}" pattern="yyyy-MM-dd"/></td>
-									<td class="tnone right">${ct.bhit}</td>
-								</tr>
-							</c:if>
-							<c:if test="${day != today}">
-								<tr>
-									<td class="tnone">${ct.bno}</td>
-									<td class="left">
-										<a href="/customer/nview?bno=${ct.bno}" class="lightgray">${ct.btitle}</a>
-									</td>
-									<td><fmt:formatDate value="${ct.bdate}" pattern="yyyy-MM-dd"/></td>
-									<td class="tnone right">${ct.bhit}</td>
-								</tr> 
-							</c:if>
-							</c:forEach>
-							</tbody>
-						</table>
+					<div class="productTab normaltab">
+						<ul>
+							<li><a href="#">포토 구매후기</a></li>
+							<li class="last"><a href="#" class="on">상품평</a></li>
+						</ul>						
 					</div>
-						
 
+
+					<!-- 상품평 -->
+					<div class="orderDiv">
+					<table summary="상품평 게시판으로 NO, 제품명, 제목, 작성자, 평점/등록일, 조회수 순으로 조회 하실수 있습니다." class="orderTable" border="1" cellspacing="0">
+						<caption>주문 제품 확인</caption>
+						<colgroup>
+						<col width="8%" class="tnone" />
+						<col width="12%" class="tw20" />
+						<col width="*" />
+						<col width="14%" class="tw20" />
+						<col width="14%" class="tnone" />
+						<col width="10%" class="tnone" />
+						</colgroup>
+						<thead>
+							<th scope="col" class="tnone">NO.</th>
+							<th scope="col">제품명</th>
+							<th scope="col">제목</th>
+							<th scope="col">작성자</th>
+							<th scope="col" class="tnone">평점/등록일</th>
+							<th scope="col" class="tnone">조회수</th>
+						</thead>
+						<tbody class="apiType">
+						<script>
+						$(function(){
+							$.ajax({
+								url:"/community/api_comment",
+								type:"post",
+								data:{},
+								dataType:"json",
+								success:function(data){
+									alert("dd");
+									console.log(data.body);
+									let apiArr = data.body.items;
+									
+									hdata = ``;
+									for(let i=0;i<4;i++){
+										hdata += `
+											<tr>
+												<td class="tnone">1</td>
+												<td>카페모리</td>
+												<td class="left">
+													<a href="#">
+														<span class="orange">[관광]</span> `+apiArr[i].item.title.org+`
+														<img src="../images/ico/ico_new.gif" alt="new" />
+													</a>
+												</td>
+												<td>slseifh***</td>
+												<td class="tnone">
+													<img src="../images/ico/ico_star.gif" alt="별점" />
+													<img src="../images/ico/ico_star.gif" alt="별점" />
+													<img src="../images/ico/ico_star.gif" alt="별점" />
+													<img src="../images/ico/ico_star.gif" alt="별점" />
+													<img src="../images/ico/ico_star.gif" alt="별점" />
+	
+													<br/>14-01-28
+												</td>
+												<td class="right tnone">9999</td>
+											</tr>
+										`;
+										
+									}// for
+									$(".apiType").html(hdata);
+									
+								},
+								error:function(){
+									alert("api 호춣 실패");
+								}
+							});// ajax
+								
+						
+						});// jquery
+						
+						</script>
+						<!-- 리스트 반복 -->
+							<!-- <tr>
+								<td class="tnone">1</td>
+								<td>카페모리</td>
+								<td class="left">
+									<a href="#">
+										<span class="orange">[먹어봤어요]</span> 쟈뎅, 테이크아웃 카페모리...
+										<img src="../images/ico/ico_new.gif" alt="new" />
+									</a>
+								</td>
+								<td>slseifh***</td>
+								<td class="tnone">
+									<img src="../images/ico/ico_star.gif" alt="별점" />
+									<img src="../images/ico/ico_star.gif" alt="별점" />
+									<img src="../images/ico/ico_star.gif" alt="별점" />
+									<img src="../images/ico/ico_star.gif" alt="별점" />
+									<img src="../images/ico/ico_star.gif" alt="별점" />
+
+									<br/>14-01-28
+								</td>
+								<td class="right tnone">9999</td>
+							</tr> -->
+						<!-- 리스트 반복 -->
+						</tbody>
+					</table>
+					</div>
 
 					<div class="btnAreaList">
+						<div class="bwright">
+							<ul>
+								<li><a href="#" class="sbtnMini">글쓰기</a></li>
+							</ul>
+						</div>
+
 						<!-- 페이징이동1 -->
 						<div class="allPageMoving1">
 
@@ -286,39 +291,17 @@
 							<ul>
 								<li class="web"><img src="../images/txt/txt_search.gif" alt="search" /></li>
 								<li class="se">
-									<select id="search_option">
-										<option value="all" />전체</option>
-										<option value="btitle" />제목</option>
-										<option value="bcontent" />내용</option>
+									<select>
+										<option value="" />제목</option>
 									</select>
 								</li>
-								<li><input type="text" class="searchInput" id=search_word /></li>
-								<li class="web"><a onclick="searchBtn()"><img src="../images/btn/btn_search.gif" alt="검색" /></a></li>
+								<li><input type="text" class="searchInput" /></li>
+								<li class="web"><a href="#"><img src="../images/btn/btn_search.gif" alt="검색" /></a></li>
 								<li class="mobile"><a href="#"><img src="../images/btn/btn_search_m.gif" alt="검색" /></a></li>
 							</ul>
 						</div>
 					</div>
-					<script>
-						
-						const searchBtn = () =>{
-							var search_option = $("#search_option").val();
-							var search_word = $("#search_word").val().trim();
-							if($("#search_word").val().trim().length<1){
-								alert("검색어를 입력하세요.");
-								$("#search_word").val('');
-								$("#search_word").focus();
-								return;
-							}else{
-								alert("검색 중...")
-								//console.log(search_option);
-								//console.log(search_word);
-								location.href= "/customer/notice?search_option="+search_option+"&search_word="+search_word;
-							}
-							
-						}
-					</script>
-					<!-- //포토 구매후기 -->
-
+					<!-- //상품평 -->
 
 				</div>
 			</div>

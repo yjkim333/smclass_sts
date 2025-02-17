@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.java.dto.MemberDto;
 import com.java.service.MemberService;
@@ -48,6 +49,20 @@ public class MemberController {
 		return "redirect:/?loginChk=0";
 	}
 	
+	// 회원가입
+	@GetMapping("/step01")
+	public String step01() {
+		return "/member/step01";
+	}
 	
+	// 인증이메일 발송
+	@ResponseBody
+	@PostMapping("/sendEmail")
+	public String sendEmail(String email) {
+		System.out.println("sendEmail : "+email);
+		//String pwcode = memberService.sendEmail(email); // text로만 발송
+		String pwcode = memberService.sendEmail2(email);	// html 발송
+		return pwcode;
+	}
 	
 }
