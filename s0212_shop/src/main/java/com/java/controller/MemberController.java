@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.java.dto.MemberDto;
 import com.java.service.MemberService;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -20,8 +22,14 @@ public class MemberController {
 	@Autowired HttpSession session;
 	@Autowired MemberService memberService;
 	
+	// 로그인 페이지
 	@GetMapping("/login")
-	public String login() {
+	public String login(HttpServletResponse response) {
+		// JAVA - 쿠키 생성
+		//Cookie cookie = new Cookie("cook_id", "aaa");
+		//cookie.setMaxAge(60*60*24); // 60*60*24 = 1일
+		//response.addCookie(cookie); // 쿠키저장
+		
 		return "/member/login";
 	}
 	
@@ -60,9 +68,41 @@ public class MemberController {
 	@PostMapping("/sendEmail")
 	public String sendEmail(String email) {
 		System.out.println("sendEmail : "+email);
-		//String pwcode = memberService.sendEmail(email); // text로만 발송
-		String pwcode = memberService.sendEmail2(email);	// html 발송
+		String pwcode = memberService.sendEmail(email); // text로만 발송
+		//String pwcode = memberService.sendEmail2(email);	// html 발송
 		return pwcode;
 	}
 	
+	// 인증이메일 발송2
+	@ResponseBody
+	@PostMapping("/sendEmail2")
+	public String sendEmail2(String email) {
+		System.out.println("sendEmail2 : "+email);
+		//String pwcode = memberService.sendEmail(email); // text로만 발송
+		String pwcode = memberService.sendEmail2(email);	// html 발송
+		session.setAttribute("pwcode", pwcode);
+		
+		return pwcode;
+	}
+	
+	
+	// 인증코드 체크
+	@ResponseBody
+	@PostMapping("/pwcodeCheck")
+	public String pwcodeCheck(String pwcode) {
+		System.out.println("pwcode : "+pwcode);
+		String pw = (String) session.getAttribute("pwcode");
+		if(pwcode.equals(pw)) {
+			return "1";
+		}else {
+			return "0";
+		}
+	}
+	
+	// 회원가입 step02 페이지
+	@GetMapping("/step02")
+	public String login() {
+		session.removeAttribute("pwcode"); // pwcode 세션 삭제
+		return "/member/step02";
+	}
 }
