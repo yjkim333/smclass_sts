@@ -1,6 +1,7 @@
 package com.java.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.java.dto.MemberDto;
 public interface MemberRepository extends JpaRepository<MemberDto, String>{
@@ -13,6 +14,10 @@ public interface MemberRepository extends JpaRepository<MemberDto, String>{
 	MemberDto findByIdAndPw(String id, String pw);
 	// select * from member where id=#{id} and pw=#{pw}
 	
+	// nativeQuery사용
+	//@Query(value = "select * from memberdto where id=? and pw=?", nativeQuery = true)
+	//Optional<MemberDto> findByIdandPw(String id, String pw);
+	//MemberDto findByIdAndPw(String id, String pw);
 	
 	
 }

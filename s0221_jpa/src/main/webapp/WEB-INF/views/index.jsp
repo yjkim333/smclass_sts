@@ -23,7 +23,7 @@
 		<ul>
 			<li><a href="/login">로그인 >></a></li>
 			<li><a href="/member">회원가입 >></a></li>
-			<li><a href="/board/blist">게시판 >></a></li>
+			<li><a href="/blist">게시판 >></a></li>
 			<li><a href="/board/boardWrite">게시글 쓰기 >></a></li>
 			<li><a href="/board/bview?bno=2">게시글 보기 >></a></li>
 			<li><a href="/mlist">회원리스트 >></a></li>
