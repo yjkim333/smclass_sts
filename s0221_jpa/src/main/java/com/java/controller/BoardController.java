@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.java.dto.BoardDto;
+import com.java.dto.CboardDto;
 import com.java.service.BoardService;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -71,7 +72,9 @@ public class BoardController {
 	public String bview(int bno, Model model) {
 		
 		BoardDto bdto = boardService.findById(bno);
+		List<CboardDto> clist = bdto.getClist();
 		model.addAttribute("bdto", bdto);
+		model.addAttribute("clist", clist);
 		
 		return "bview";
 	}

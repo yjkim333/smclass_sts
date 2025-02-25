@@ -44,8 +44,7 @@ public class CboardDto {
 	@UpdateTimestamp
 	private Timestamp cdate;
 	
-	//@OneToMany(mappedBy = "BoardDto") // 1개의 보드에 cboard 여러개 / FK 생성없이 가져와라
-	//private List<CboardDto> cboardDto;
+
 	
 	
 }
