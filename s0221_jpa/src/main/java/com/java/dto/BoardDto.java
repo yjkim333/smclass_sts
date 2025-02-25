@@ -1,6 +1,7 @@
 package com.java.dto;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -14,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -60,10 +62,12 @@ public class BoardDto {
 	@ColumnDefault("0") // 숫자 -> "0", 문자 ->"'남자'"
 	private int bhit;
 	
-	@UpdateTimestamp // 자동 시간 입력
+	@UpdateTimestamp // 자동 시간 입력 // 업데이트 할때마다 시간 변경
 	private Timestamp bdate;
 	
 	@Column(nullable = true, length = 100)
 	private String bfile;
+	
+	
 	
 }
