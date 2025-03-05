@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,6 +42,16 @@ public class MemberController {
 		List<MemberDto> list = memberService.findAll();
 		model.addAttribute("list", list);
 		return "mlist";
+	}
+	
+	// 전체 회원리스트
+	@CrossOrigin // 자바스크립트 접근 해제
+	@ResponseBody
+	@GetMapping("/mlist2")
+	public List<MemberDto> mlist2(Model model) {
+		List<MemberDto> list = memberService.findAll();
+		model.addAttribute("list", list);
+		return list;
 	}
 	
 	// 회원1명 상세정보

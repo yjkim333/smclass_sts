@@ -2,6 +2,8 @@ package com.java.service;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -149,6 +151,21 @@ public class MemberServiceImpl implements MemberService {
 		
 		System.out.println("이메일 전송 완료!!");
 		return pwcode;
+	}
+
+
+	// 회원 전체 가져오기 (React)
+	@Override
+	public List<MemberDto> memberList() {
+		List<MemberDto> list = memberMapper.selectAll();
+		return list;
+	}
+	
+	// 회원 1명 가져오기 (React)
+	@Override
+	public MemberDto memberView(String id) {
+		MemberDto mdto = memberMapper.selectOne();
+		return mdto;
 	}
 	
 	

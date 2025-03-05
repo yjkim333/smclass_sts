@@ -67,10 +67,12 @@ public class BoardDto {
 	
 	@Column(nullable = true, length = 100)
 	private String bfile;
+
+	
 	
 	// CboardDto의 boardDto 컬럼을 넣어줌(BoardDro boardDto 이름을 가져옴)
 	// 테이블을 조인해서 가져옴
-	@OneToMany(mappedBy = "BoardDto",fetch = FetchType.EAGER) // 1개의 보드에 cboard 여러개 / FK 생성없이 가져와라
-	private List<CboardDto> clist; // CboardDto의 boardDto 를 리스트로 가져와
+//	@OneToMany(mappedBy = "BoardDto",fetch = FetchType.EAGER) // 1개의 보드에 cboard 여러개 / FK 생성없이 가져와라
+//	private List<CboardDto> clist; // CboardDto의 boardDto 를 리스트로 가져와
 	
 }
